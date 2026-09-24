@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Login icon">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#1f4d3c"/>
+      <stop offset="100%" stop-color="#d98c5f"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" rx="40" fill="url(#bg)"/>
+  <circle cx="150" cy="105" r="56" fill="#ffffff" opacity="0.95"/>
+  <path d="M76 230c10-38 40-60 74-60s64 22 74 60" fill="#ffffff" opacity="0.92"/>
+  <circle cx="150" cy="105" r="48" fill="none" stroke="#1f4d3c" stroke-width="6" opacity="0.35"/>
+</svg>

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-THis is the 2nd dummy file from current branch
-=======
-THis is the 2nd dummy file from merged branch
->>>>>>> branch-name
+main version

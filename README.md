@@ -37,3 +37,9 @@ http://localhost:8000
 ## Notes
 
 This is a basic starter ecommerce UI and can be expanded with more pages, product interactions, login forms, and cart functionality.
+
+## Recent Update
+
+- Refined the landing page layout for a cleaner storefront presentation.
+- Added a stronger product-first hero section and promotional callout.
+- Prepared the project for easy extension with more storefront sections.

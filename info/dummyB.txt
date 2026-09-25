@@ -1,1 +1,3 @@
-main version
+Resolved merge conflict.
+This keeps both branch ideas in one final version.
+main and feature were both considered.

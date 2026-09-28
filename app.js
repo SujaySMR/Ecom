@@ -36,16 +36,14 @@ const cartItemsElement = document.querySelector("#cart-items");
 const cartEmptyMessage = document.querySelector("#cart-empty");
 const cartCountElement = document.querySelector("#cart-count");
 const cartSubtotalElement = document.querySelector("#cart-subtotal");
+
 const cartTaxElement = document.querySelector("#cart-tax");
 const cartTotalElement = document.querySelector("#cart-total");
 const cartStatus = document.querySelector("#cart-status");
 const payButton = document.querySelector("#proceed-to-pay");
 const taxRate = 0.08;
-const cart = new Map();
-const currency = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+
+
 
 document.querySelector("#cart-tax-rate").textContent = `${taxRate * 100}%`;
 
@@ -72,7 +70,13 @@ function renderCart() {
 
     const controls = document.createElement("div");
     controls.className = "cart-item-controls";
+<<<<<<< HEAD
     controls.append(createCartButton("-", "Decrease quantity", "decrease", productId));
+=======
+    controls.append(
+      createCartButton("-", "Decrease quantity", "decrease", productId),
+    );
+>>>>>>> feature/login
     const quantity = document.createElement("span");
     quantity.textContent = String(item.quantity);
     quantity.setAttribute("aria-label", `Quantity: ${item.quantity}`);
@@ -89,6 +93,7 @@ function renderCart() {
     cartItemsElement.append(row);
   }
 
+<<<<<<< HEAD
   const tax = Math.round(subtotal * taxRate * 100) / 100;
   cartCountElement.textContent = String(itemCount);
   cartSubtotalElement.textContent = currency.format(subtotal);
@@ -97,6 +102,12 @@ function renderCart() {
   cartEmptyMessage.hidden = itemCount > 0;
   cartItemsElement.hidden = itemCount === 0;
   payButton.disabled = itemCount === 0;
+=======
+  cartCountElement.textContent = String(itemCount);
+  cartSubtotalElement.textContent = currency.format(subtotal);
+  cartEmptyMessage.hidden = itemCount > 0;
+  cartItemsElement.hidden = itemCount === 0;
+>>>>>>> feature/login
 }
 
 function createCartButton(label, accessibleName, action, productId) {
@@ -111,7 +122,10 @@ function createCartButton(label, accessibleName, action, productId) {
 }
 
 document.querySelector("#cart-open").addEventListener("click", () => {
+<<<<<<< HEAD
   cartStatus.textContent = "";
+=======
+>>>>>>> feature/login
   cartDialog.showModal();
 });
 
@@ -140,7 +154,10 @@ document.querySelector(".product-grid").addEventListener("click", (event) => {
     price,
     quantity: currentItem ? currentItem.quantity + 1 : 1,
   });
+<<<<<<< HEAD
   cartStatus.textContent = "";
+=======
+>>>>>>> feature/login
   renderCart();
 });
 
@@ -160,6 +177,7 @@ cartItemsElement.addEventListener("click", (event) => {
     cart.set(productId, { ...item, quantity: item.quantity - 1 });
   }
 
+<<<<<<< HEAD
   cartStatus.textContent = "";
   renderCart();
 });
@@ -169,4 +187,9 @@ payButton.addEventListener("click", () => {
   cartStatus.textContent = "Demo checkout only. No payment was taken. Connect a payment provider to accept real payments.";
 });
 
+=======
+  renderCart();
+});
+
+>>>>>>> feature/login
 renderCart();

@@ -106,6 +106,114 @@ img {
   border: 1px solid var(--primary);
 }
 
+.login-btn {
+  font: inherit;
+  padding: 0.75rem 1.1rem;
+}
+
+.login-dialog {
+  width: min(440px, calc(100% - 2rem));
+  margin: auto;
+  padding: 2rem;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.login-dialog::backdrop {
+  background: rgba(20, 31, 26, 0.58);
+  backdrop-filter: blur(3px);
+}
+
+.login-heading,
+.password-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.login-heading {
+  margin-bottom: 1.5rem;
+}
+
+.login-heading .eyebrow {
+  margin-bottom: 0.3rem;
+}
+
+.login-heading h2 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.dialog-close,
+.text-button {
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-dialog form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.login-dialog label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.login-dialog input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.login-dialog input:focus-visible,
+.dialog-close:focus-visible,
+.text-button:focus-visible,
+.login-submit:focus-visible,
+.login-btn:focus-visible {
+  outline: 3px solid rgba(217, 140, 95, 0.55);
+  outline-offset: 2px;
+}
+
+.password-label-row {
+  margin-top: 0.55rem;
+}
+
+.login-submit {
+  min-height: 48px;
+  margin-top: 0.8rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-submit:hover {
+  background: var(--primary-dark);
+}
+
+.login-status {
+  min-height: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .top-banner {
   padding-top: 1rem;
 }
@@ -486,6 +594,10 @@ img {
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  .login-dialog {
+    padding: 1.5rem;
   }
 
   .hero {

@@ -7,6 +7,7 @@ A responsive ecommerce storefront built with plain HTML and CSS.
 - Store navigation and a free-shipping announcement
 - Product-focused hero section and seasonal promotion
 - Store benefits, statistics, product catalog, and customer testimonial
+- Add products to a shopping cart, adjust quantities, remove items, and view the subtotal
 - Responsive layouts for desktop and mobile screens
 
 ## Project Structure
@@ -29,4 +30,4 @@ Visit `http://localhost:8000`.
 
 ## Current Limitations
 
-This is a static frontend. Navigation links and cart controls are placeholders; product actions, checkout, account sign-in, and backend services are not implemented.
+This is a static frontend. The cart works in the current browser session, but checkout, account sign-in, and backend services are not implemented. Navigation links remain placeholders.

@@ -30,3 +30,126 @@ loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   loginStatus.textContent = "Sign-in is not connected yet. Please try again when an account service is available.";
 });
+
+const cartDialog = document.querySelector("#cart-dialog");
+const cartItemsElement = document.querySelector("#cart-items");
+const cartEmptyMessage = document.querySelector("#cart-empty");
+const cartCountElement = document.querySelector("#cart-count");
+const cartSubtotalElement = document.querySelector("#cart-subtotal");
+const cart = new Map();
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
+function renderCart() {
+  cartItemsElement.replaceChildren();
+  let itemCount = 0;
+  let subtotal = 0;
+
+  for (const [productId, item] of cart) {
+    itemCount += item.quantity;
+    subtotal += item.price * item.quantity;
+
+    const row = document.createElement("li");
+    row.className = "cart-item";
+
+    const details = document.createElement("div");
+    const name = document.createElement("p");
+    name.className = "cart-item-name";
+    name.textContent = item.name;
+    const price = document.createElement("p");
+    price.className = "cart-item-price";
+    price.textContent = `${currency.format(item.price)} each`;
+    details.append(name, price);
+
+    const controls = document.createElement("div");
+    controls.className = "cart-item-controls";
+    controls.append(
+      createCartButton("-", "Decrease quantity", "decrease", productId),
+    );
+    const quantity = document.createElement("span");
+    quantity.textContent = String(item.quantity);
+    quantity.setAttribute("aria-label", `Quantity: ${item.quantity}`);
+    controls.append(quantity);
+    controls.append(
+      createCartButton("+", "Increase quantity", "increase", productId),
+      createCartButton("Remove", `Remove ${item.name}`, "remove", productId),
+    );
+
+    const lineTotal = document.createElement("strong");
+    lineTotal.className = "cart-line-total";
+    lineTotal.textContent = currency.format(item.price * item.quantity);
+    row.append(details, controls, lineTotal);
+    cartItemsElement.append(row);
+  }
+
+  cartCountElement.textContent = String(itemCount);
+  cartSubtotalElement.textContent = currency.format(subtotal);
+  cartEmptyMessage.hidden = itemCount > 0;
+  cartItemsElement.hidden = itemCount === 0;
+}
+
+function createCartButton(label, accessibleName, action, productId) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = action === "remove" ? "remove-item" : "quantity-button";
+  button.textContent = label;
+  button.setAttribute("aria-label", accessibleName);
+  button.dataset.cartAction = action;
+  button.dataset.productId = productId;
+  return button;
+}
+
+document.querySelector("#cart-open").addEventListener("click", () => {
+  cartDialog.showModal();
+});
+
+document.querySelector("#cart-close").addEventListener("click", () => {
+  cartDialog.close();
+});
+
+cartDialog.addEventListener("click", (event) => {
+  if (event.target === cartDialog) {
+    cartDialog.close();
+  }
+});
+
+document.querySelector(".product-grid").addEventListener("click", (event) => {
+  const addButton = event.target.closest(".product-info button");
+  if (!addButton) return;
+
+  const productCard = addButton.closest(".product-card-item");
+  const name = productCard.querySelector("h3").textContent.trim();
+  const price = Number(productCard.querySelector(".price").textContent.replace(/[^\d.]/g, ""));
+  const productId = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const currentItem = cart.get(productId);
+
+  cart.set(productId, {
+    name,
+    price,
+    quantity: currentItem ? currentItem.quantity + 1 : 1,
+  });
+  renderCart();
+});
+
+cartItemsElement.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-cart-action]");
+  if (!button) return;
+
+  const { cartAction, productId } = button.dataset;
+  const item = cart.get(productId);
+  if (!item) return;
+
+  if (cartAction === "remove" || (cartAction === "decrease" && item.quantity === 1)) {
+    cart.delete(productId);
+  } else if (cartAction === "increase") {
+    cart.set(productId, { ...item, quantity: item.quantity + 1 });
+  } else if (cartAction === "decrease") {
+    cart.set(productId, { ...item, quantity: item.quantity - 1 });
+  }
+
+  renderCart();
+});
+
+renderCart();

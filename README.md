@@ -7,6 +7,8 @@ A responsive ecommerce storefront built with plain HTML and CSS.
 - Store navigation and a free-shipping announcement
 - Product-focused hero section and seasonal promotion
 - Store benefits, statistics, product catalog, and customer testimonial
+- Shopping cart with quantity controls and item removal
+- Checkout summary with an estimated tax and order total
 - Responsive layouts for desktop and mobile screens
 
 ## Project Structure
@@ -29,4 +31,4 @@ Visit `http://localhost:8000`.
 
 ## Current Limitations
 
-This is a static frontend. Navigation links and cart controls are placeholders; product actions, checkout, account sign-in, and backend services are not implemented.
+This is a static frontend. The cart and checkout summary work in the current page session. Tax uses an illustrative 8% rate and is not calculated for a delivery address. The payment action is a demo only; no payment is processed. Connect a tax service and payment provider before using this for real orders. Account sign-in and navigation links are also placeholders.

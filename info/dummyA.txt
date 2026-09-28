@@ -1,1 +1,4 @@
 Dummy file 1
+
+This file contains sample project notes.
+Use it to keep temporary ideas, reminders, or test content for the Ecom storefront.

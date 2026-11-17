@@ -3,23 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic Storefront</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="theme-color" content="#08101d" />
+    <meta name="description" content="Forma: considered homeware, shaped by future-facing design and everyday rituals." />
+    <title>Forma — Objects for Living</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="site-header">
+      <div class="header-note">
+        <span>Designed for everyday rituals</span>
+        <span>Complimentary delivery on orders over $75</span>
+        <span>Thoughtful pieces, made to last</span>
+      </div>
       <nav class="navbar container">
-        <div class="logo">Ecom</div>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Shop</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <button class="secondary-btn login-btn" id="login-open" type="button">Log in</button>
-        <button class="cta-btn" id="cart-open" type="button" aria-haspopup="dialog" aria-controls="cart-dialog">
-          Cart (<span id="cart-count">0</span>)
+        <a class="logo" href="#" aria-label="Forma home">forma<span>.</span></a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+          <span></span><span></span><span class="visually-hidden">Open menu</span>
         </button>
+        <ul class="nav-links" id="primary-navigation">
+          <li><a href="#" aria-current="page">Home</a></li>
+          <li><a href="#catalog">Shop</a></li>
+          <li><a href="#story">Our story</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="wishlist-open" id="wishlist-open" type="button" aria-haspopup="dialog" aria-controls="wishlist-dialog" aria-label="Open wishlist">
+            <span class="nav-icon" aria-hidden="true">♡</span>
+            <span class="action-label">Saved</span>
+            <span class="count-pill" id="wishlist-count">0</span>
+          </button>
+          <button class="secondary-btn login-btn" id="login-open" type="button">Log in</button>
+          <button class="secondary-btn admin-open" id="admin-open" type="button" hidden>Studio</button>
+          <button class="cta-btn cart-open" id="cart-open" type="button" aria-haspopup="dialog" aria-controls="cart-dialog">
+            <span class="nav-icon" aria-hidden="true">▱</span>
+            Cart <span class="count-pill" id="cart-count">0</span>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -33,176 +52,322 @@
       </div>
       <p class="cart-empty" id="cart-empty">Your cart is empty. Add something you love.</p>
       <ul class="cart-items" id="cart-items" aria-live="polite"></ul>
+      <p class="shipping-note" id="shipping-note">Add <strong>$75.00</strong> more to your bag for complimentary worldwide delivery.</p>
       <div class="cart-summary">
-<<<<<<< HEAD
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span id="cart-subtotal">$0.00</span>
-        </div>
-        <div class="summary-row">
-          <span>Estimated tax (<span id="cart-tax-rate">8%</span>)</span>
-          <span id="cart-tax">$0.00</span>
-        </div>
-        <p class="tax-note">Demo estimate only. Actual tax depends on your delivery address.</p>
-        <div class="summary-row order-total">
-          <strong>Order total</strong>
-          <strong id="cart-total">$0.00</strong>
-        </div>
-        <button class="login-submit pay-button" id="proceed-to-pay" type="button" disabled>Proceed to pay</button>
-        <p class="cart-status" id="cart-status" role="status" aria-live="polite"></p>
-=======
         <span>Subtotal</span>
         <strong id="cart-subtotal">$0.00</strong>
->>>>>>> feature/login
+      </div>
+      <div class="cart-summary cart-discount-summary" id="cart-discount-summary" hidden>
+        <span>Estimated discount</span>
+        <strong id="cart-discount">−$0.00</strong>
+      </div>
+      <p class="cart-shipping-summary" id="cart-shipping-summary"></p>
+      <div class="cart-summary cart-total-summary">
+        <span>Estimated total</span>
+        <strong id="cart-total">$0.00</strong>
+      </div>
+      <form class="coupon-form" id="coupon-form">
+        <label for="coupon-code">Have a studio code?</label>
+        <div class="coupon-entry">
+          <input id="coupon-code" name="coupon" autocomplete="off" maxlength="32" placeholder="Enter code" />
+          <button type="submit" id="coupon-apply">Apply</button>
+        </div>
+        <p id="coupon-status" role="status" aria-live="polite"></p>
+      </form>
+      <button class="checkout-button" id="checkout-button" type="button" disabled>
+        Continue to secure checkout <span aria-hidden="true">↗</span>
+      </button>
+      <button class="clear-cart-button" id="clear-cart" type="button" hidden>Clear bag</button>
+      <p class="checkout-security-note">Secure checkout powered by Stripe. Your card details never touch this site.</p>
+      <p class="checkout-status" id="checkout-status" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <dialog class="wishlist-dialog" id="wishlist-dialog" aria-labelledby="wishlist-title">
+      <div class="cart-heading">
+        <div>
+          <p class="eyebrow">Pieces to come back to</p>
+          <h2 id="wishlist-title">Your wishlist</h2>
+        </div>
+        <button class="dialog-close" id="wishlist-close" type="button" aria-label="Close wishlist">Close</button>
+      </div>
+      <p class="cart-empty" id="wishlist-empty">Your saved pieces will be waiting here.</p>
+      <ul class="wishlist-items" id="wishlist-items" aria-live="polite"></ul>
+      <a class="wishlist-shop-link" href="#catalog" id="wishlist-shop">Find something lovely <span aria-hidden="true">↗</span></a>
+    </dialog>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-detail-title">
+      <button class="dialog-close product-dialog-close" id="product-close" type="button" aria-label="Close product details">Close</button>
+      <div class="product-detail-layout">
+        <div class="product-gallery">
+          <div class="product-detail-image" id="product-detail-image"></div>
+          <div class="product-thumbnails" id="product-thumbnails" aria-label="Product image gallery"></div>
+        </div>
+        <div class="product-detail-copy">
+          <p class="eyebrow" id="product-detail-category"></p>
+          <h2 id="product-detail-title"></h2>
+          <p class="product-detail-price" id="product-detail-price"></p>
+          <p class="product-detail-description" id="product-detail-description"></p>
+          <p class="product-stock" id="product-detail-stock"></p>
+          <dl class="product-specifications" id="product-specifications"></dl>
+          <div class="product-detail-actions">
+            <button class="primary-btn" id="product-add-to-cart" type="button">Add to bag</button>
+            <button class="secondary-btn" id="product-save" type="button">Save piece</button>
+          </div>
+          <p id="product-detail-status" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </dialog>
 
     <dialog class="login-dialog" id="login-dialog" aria-labelledby="login-title">
       <div class="login-heading">
         <div>
-          <p class="eyebrow">Welcome back</p>
-          <h2 id="login-title">Log in to Ecom</h2>
+          <p class="eyebrow" id="login-eyebrow">Welcome back</p>
+          <h2 id="login-title">Welcome to Forma</h2>
         </div>
         <button class="dialog-close" id="login-close" type="button" aria-label="Close login dialog">Close</button>
       </div>
-      <form id="login-form">
-        <label for="login-email">Email address</label>
-        <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+      <section id="auth-view">
+        <form id="login-form">
+          <label for="login-name" id="login-name-label" hidden>Your name</label>
+          <input id="login-name" name="name" autocomplete="name" maxlength="100" placeholder="Your name" hidden />
+          <label for="login-email">Email address</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
 
-        <div class="password-label-row">
-          <label for="login-password">Password</label>
-          <button class="text-button" id="password-toggle" type="button" aria-pressed="false">Show</button>
+          <div class="password-label-row">
+            <label for="login-password">Password</label>
+            <button class="text-button" id="password-toggle" type="button" aria-pressed="false">Show</button>
+          </div>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required />
+
+          <button class="login-submit" id="login-submit" type="submit">Log in</button>
+          <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
+        </form>
+        <button class="text-button auth-mode-toggle" id="auth-mode-toggle" type="button">Create an account</button>
+      </section>
+      <section class="account-view" id="account-view" hidden>
+        <p class="account-greeting">Welcome, <strong id="account-name"></strong></p>
+        <p id="account-email"></p>
+        <div class="account-orders-heading">
+          <h3>Your orders</h3>
+          <button class="text-button" id="orders-refresh" type="button">Refresh</button>
         </div>
-        <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+        <ul class="account-orders" id="account-orders"></ul>
+        <p id="account-status" role="status" aria-live="polite"></p>
+        <button class="secondary-btn account-logout" id="account-logout" type="button">Sign out</button>
+      </section>
+    </dialog>
 
-        <button class="login-submit" type="submit">Log in</button>
-        <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
-      </form>
+    <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-title">
+      <div class="login-heading">
+        <div>
+          <p class="eyebrow">Studio controls</p>
+          <h2 id="admin-title">Catalog &amp; inventory</h2>
+        </div>
+        <button class="dialog-close" id="admin-close" type="button" aria-label="Close studio controls">Close</button>
+      </div>
+      <section class="admin-section">
+        <h3>Product inventory</h3>
+        <form class="admin-product-form" id="admin-product-form">
+          <input id="admin-product-id" type="hidden" />
+          <label for="admin-product-name">Name</label>
+          <input id="admin-product-name" required maxlength="120" />
+          <label for="admin-product-slug">URL slug</label>
+          <input id="admin-product-slug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" />
+          <div class="admin-form-row">
+            <label>Category<input id="admin-product-category" required maxlength="40" /></label>
+            <label>Material<input id="admin-product-material" maxlength="120" /></label>
+          </div>
+          <div class="admin-form-row">
+            <label>Price (USD)<input id="admin-product-price" type="number" min="0.01" step="0.01" required /></label>
+            <label>Units in stock<input id="admin-product-stock" type="number" min="0" step="1" required /></label>
+            <label>Featured order<input id="admin-product-rank" type="number" min="0" step="1" value="1000" /></label>
+          </div>
+          <label for="admin-product-description">Description</label>
+          <textarea id="admin-product-description" rows="3" maxlength="2000"></textarea>
+          <label for="admin-product-images">Secure image URLs (one per line)</label>
+          <textarea id="admin-product-images" rows="2" placeholder="/assets/photo.jpg"></textarea>
+          <label for="admin-product-specs">Specifications (one Key: Value per line)</label>
+          <textarea id="admin-product-specs" rows="3" placeholder="Material: Solid oak"></textarea>
+          <label for="admin-product-theme">Studio image style</label>
+          <select id="admin-product-theme">
+            <option value="product-one">01 — Brass glow</option>
+            <option value="product-two">02 — Sculpted form</option>
+            <option value="product-three">03 — Soft texture</option>
+            <option value="product-four">04 — Natural grain</option>
+            <option value="product-five">05 — Ceramic light</option>
+            <option value="product-six">06 — Arc lighting</option>
+            <option value="product-seven">07 — Woven neutral</option>
+            <option value="product-eight">08 — Modular oak</option>
+          </select>
+          <div class="admin-form-actions">
+            <button class="login-submit" type="submit" id="admin-product-save">Save product</button>
+            <button class="secondary-btn" type="button" id="admin-product-reset">New product</button>
+          </div>
+          <p id="admin-product-status" role="status" aria-live="polite"></p>
+        </form>
+        <ul class="admin-product-list" id="admin-product-list"></ul>
+      </section>
+      <section class="admin-section">
+        <h3>Discount codes</h3>
+        <form class="admin-coupon-form" id="admin-coupon-form">
+          <label for="admin-coupon-code">Code</label>
+          <input id="admin-coupon-code" required maxlength="32" pattern="[A-Za-z0-9_-]{3,32}" />
+          <div class="admin-form-row">
+            <label>Discount type
+              <select id="admin-coupon-type">
+                <option value="percent">Percent off</option>
+                <option value="amount">Amount off (USD)</option>
+              </select>
+            </label>
+            <label>Discount value<input id="admin-coupon-value" type="number" min="0.01" step="0.01" required /></label>
+            <label>Minimum subtotal (USD)<input id="admin-coupon-minimum" type="number" min="0" step="0.01" value="0" /></label>
+            <label>Redemption limit<input id="admin-coupon-limit" type="number" min="1" step="1" placeholder="Unlimited" /></label>
+          </div>
+          <button class="login-submit" type="submit">Create discount code</button>
+          <p id="admin-coupon-status" role="status" aria-live="polite"></p>
+        </form>
+        <ul class="admin-coupon-list" id="admin-coupon-list"></ul>
+      </section>
     </dialog>
 
     <main>
-      <section class="top-banner container">
-        <span>Free shipping on orders over $75</span>
-      </section>
+      <div class="checkout-feedback" id="checkout-feedback" role="status" aria-live="polite" hidden></div>
       <section class="hero container">
         <div class="hero-content">
-          <p class="status-badge">New collection</p>
-          <p class="eyebrow">New season arrivals</p>
-          <h1>Fresh styles for everyday living.</h1>
+          <p class="status-badge"><span aria-hidden="true"></span> A new dimension of living</p>
+          <p class="eyebrow">Considered design · Since 2018</p>
+          <h1>Design for the <em>next</em> everyday.</h1>
           <p>
-            Discover quality essentials and modern favorites designed to make
-            life simpler, brighter, and more comfortable.
+          Future-facing forms, grounded in natural materials. Discover objects
+          that make daily rituals feel a little more extraordinary.
           </p>
           <div class="hero-actions">
-            <a href="#" class="primary-btn">Shop now</a>
-            <a href="#" class="secondary-btn">Learn more</a>
+            <a href="#catalog" class="primary-btn">Explore the collection <span aria-hidden="true">↗</span></a>
+            <a href="#story" class="secondary-btn">Enter the Forma world</a>
           </div>
         </div>
-        <div class="hero-image">
-          <div class="product-card">
-            <span class="badge">Popular</span>
-            <h3>Urban Chair</h3>
-            <p>$89</p>
+        <div class="hero-image" role="img" aria-label="A sculptural three-dimensional terracotta lounge chair">
+          <span class="hero-index">01 / FUTURE FORMS</span>
+          <span class="scene-orbit orbit-one" aria-hidden="true"></span>
+          <span class="scene-orbit orbit-two" aria-hidden="true"></span>
+          <div class="chair-scene" aria-hidden="true">
+            <div class="chair-shadow"></div>
+            <div class="chair-back"></div>
+            <div class="chair-seat"></div>
+            <div class="chair-apron"></div>
+            <div class="chair-leg chair-leg-one"></div>
+            <div class="chair-leg chair-leg-two"></div>
+            <div class="chair-leg chair-leg-three"></div>
+            <div class="chair-leg chair-leg-four"></div>
+            <div class="chair-stitch"></div>
           </div>
+          <div class="product-card">
+            <span class="badge">DESIGNER PICK</span>
+            <h3>The Forma Lounge</h3>
+            <p>Solid ash · Saddle leather <strong>FORM / 01</strong></p>
+          </div>
+          <span class="hero-caption">Form follows feeling.</span>
         </div>
       </section>
 
       <section class="features container">
         <div class="feature">
-          <h3>Fast Delivery</h3>
-          <p>Quick shipping with reliable tracking.</p>
+          <h3>Thoughtful Materials</h3>
+          <p>Honest textures and enduring forms for everyday living.</p>
         </div>
         <div class="feature">
           <h3>Secure Checkout</h3>
-          <p>Protected payments and simple checkout.</p>
+          <p>Card payments are processed through Stripe Checkout.</p>
         </div>
         <div class="feature">
-          <h3>Easy Returns</h3>
-          <p>Hassle-free return policy for peace of mind.</p>
+          <h3>Studio Curated</h3>
+          <p>A focused collection, managed directly by the Forma studio.</p>
         </div>
       </section>
 
-      <section class="stats-strip container" aria-label="Store statistics">
+      <section class="stats-strip container" aria-label="Store information">
         <div class="stat-box">
-          <strong>25k+</strong>
-          <span>Happy shoppers</span>
+          <strong id="stat-products-count">08</strong>
+          <span>Curated objects</span>
         </div>
         <div class="stat-box">
-          <strong>4.9/5</strong>
-          <span>Average rating</span>
+          <strong id="stat-categories-count">04</strong>
+          <span>Collections</span>
         </div>
         <div class="stat-box">
-          <strong>48 hrs</strong>
-          <span>Fast dispatch</span>
+          <strong>$75</strong>
+          <span>Complimentary delivery from</span>
         </div>
         <div class="stat-box">
-          <strong>200+</strong>
-          <span>Curated styles</span>
+          <strong>USD</strong>
+          <span>Secure payment currency</span>
         </div>
       </section>
 
-      <section class="catalog container">
-        <div class="section-heading">
-          <p class="eyebrow">Featured collection</p>
-          <h2>Popular products</h2>
+      <section class="catalog container" id="catalog">
+        <div class="catalog-heading">
+          <div class="section-heading">
+            <p class="eyebrow">A few things we love</p>
+            <h2>Objects from another point of view.</h2>
+            <p class="section-intro">Sculptural forms, responsive materials, and useful things with a little more feeling.</p>
+          </div>
+          <label class="sort-control" for="product-sort">
+            <span>Sort by</span>
+            <select id="product-sort" name="sort">
+              <option value="featured">Featured</option>
+              <option value="price-ascending">Price: low to high</option>
+              <option value="price-descending">Price: high to low</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </label>
         </div>
 
-        <div class="product-grid">
-          <article class="product-card-item">
-            <div class="product-image product-one"></div>
-            <div class="product-info">
-              <h3>Minimal Lamp</h3>
-              <p class="price">$49</p>
-              <button>Add to cart</button>
-            </div>
-          </article>
-
-          <article class="product-card-item">
-            <div class="product-image product-two"></div>
-            <div class="product-info">
-              <h3>Leather Chair</h3>
-              <p class="price">$129</p>
-              <button>Add to cart</button>
-            </div>
-          </article>
-
-          <article class="product-card-item">
-            <div class="product-image product-three"></div>
-            <div class="product-info">
-              <h3>Soft Throw</h3>
-              <p class="price">$35</p>
-              <button>Add to cart</button>
-            </div>
-          </article>
-
-          <article class="product-card-item">
-            <div class="product-image product-four"></div>
-            <div class="product-info">
-              <h3>Wood Table</h3>
-              <p class="price">$199</p>
-              <button>Add to cart</button>
-            </div>
-          </article>
+        <div class="catalog-toolbar">
+          <div class="category-filters" id="category-filters" role="group" aria-label="Filter products by category">
+          </div>
+          <label class="search-control">
+            <span class="visually-hidden">Search products</span>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="product-search" type="search" autocomplete="off" placeholder="Find your next favourite" />
+            <kbd>/</kbd>
+          </label>
         </div>
+        <form class="advanced-filters" id="catalog-filters">
+          <label>From $<input id="filter-min-price" type="number" min="0" step="1" inputmode="decimal" placeholder="0" /></label>
+          <label>To $<input id="filter-max-price" type="number" min="0" step="1" inputmode="decimal" placeholder="Any" /></label>
+          <label class="stock-filter"><input id="filter-in-stock" type="checkbox" /> In stock only</label>
+          <button type="submit">Update view</button>
+          <button type="reset" id="filter-reset">Clear filters</button>
+        </form>
+        <p class="catalog-result-count" id="catalog-result-count" aria-live="polite">Loading the collection…</p>
+
+        <div class="product-grid" id="product-grid" aria-live="polite"></div>
+        <p class="catalog-empty" id="catalog-empty" hidden>No pieces found. Try another search or category.</p>
+        <p class="wishlist-status" id="wishlist-status" role="status" aria-live="polite"></p>
+        <nav class="catalog-pagination" id="catalog-pagination" aria-label="Product pages">
+          <button id="page-previous" type="button" aria-label="Previous page">← Previous</button>
+          <span id="page-indicator"></span>
+          <button id="page-next" type="button" aria-label="Next page">Next →</button>
+        </nav>
       </section>
 
-      <section class="promo-section">
+      <section class="promo-section" id="story">
         <div class="promo-content container">
           <div class="promo-text">
-            <p class="eyebrow">Seasonal sale</p>
-            <h2>Design your space with comfort in mind.</h2>
+            <p class="eyebrow">The Forma approach</p>
+            <h2>Design your space for what comes next.</h2>
             <p>
-              Curated essentials for better living, from cozy textures to mindful
-              home upgrades that bring warmth and function together.
+              A focused collection built around clarity, material, and the quiet
+              pleasure of objects that work beautifully.
             </p>
-            <a href="#" class="primary-btn">Explore sale</a>
+            <a href="#catalog" class="primary-btn">Discover the collection <span aria-hidden="true">↗</span></a>
           </div>
 
           <div class="promo-panel">
             <div class="promo-box">
-              <span>Up to</span>
-              <strong>40% OFF</strong>
-              <small>Selected home picks</small>
+              <span>FORM / FUNCTION</span>
+              <strong>STUDIO / EDITS</strong>
+              <small>Considered objects for living</small>
             </div>
           </div>
         </div>
@@ -210,28 +375,66 @@
 
       <section class="testimonial-section container">
         <div class="testimonial-card">
-          <p class="quote">“The quality is better than expected and the design feels premium from the moment it arrives.”</p>
+          <p class="quote">“Good design should make the everyday feel inevitable.”</p>
           <div class="customer-meta">
-            <strong>Priya S.</strong>
-            <span>Verified buyer</span>
+            <strong>Forma Studio</strong>
+            <span>Our point of view</span>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <div>
-          <div class="logo">Ecom</div>
-          <p>Mindfully crafted essentials for everyday living.</p>
+    <footer class="site-footer" id="contact">
+      <div class="footer-topline"></div>
+      <div class="container">
+        <div class="footer-main">
+          <div class="footer-brand">
+            <a class="logo" href="#" aria-label="Forma home">forma<span>.</span></a>
+            <p>Objects for living.<br />Made to be lived with.</p>
+            <a class="footer-email" href="mailto:hello@forma.studio">Say hello <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="footer-column">
+            <h2>Explore</h2>
+            <a href="#catalog">Shop all</a>
+            <a href="#story">Our story</a>
+            <a href="#catalog" data-category-link="furniture">Furniture</a>
+            <a href="#catalog" data-category-link="lighting">Lighting</a>
+          </div>
+          <div class="footer-column">
+            <h2>Here to help</h2>
+            <a href="mailto:hello@forma.studio?subject=Shipping%20question">Shipping &amp; delivery</a>
+            <a href="mailto:hello@forma.studio?subject=Returns%20question">Returns &amp; exchanges</a>
+            <a href="mailto:hello@forma.studio">Contact the studio</a>
+          </div>
+          <div class="footer-note">
+            <span class="footer-note-mark" aria-hidden="true">✳</span>
+            <p>Thoughtfully chosen.<br />Considered for a long time.</p>
+            <a href="#catalog">Find your forever piece <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="footer-newsletter">
+            <p class="eyebrow">Signal from Forma</p>
+            <h2>New forms. No noise.</h2>
+            <p>Get occasional notes on new objects, studio ideas, and considered living.</p>
+            <form id="newsletter-form">
+              <label class="visually-hidden" for="newsletter-email">Email address</label>
+              <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required />
+              <label class="newsletter-consent" for="newsletter-consent">
+                <input id="newsletter-consent" type="checkbox" required />
+                <span>I agree to receive occasional email from Forma.</span>
+              </label>
+              <button type="submit" aria-label="Subscribe to Forma updates">Join <span aria-hidden="true">↗</span></button>
+            </form>
+            <p id="newsletter-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
-        <div class="footer-links">
-          <a href="#">Shipping</a>
-          <a href="#">Returns</a>
-          <a href="#">Support</a>
+        <div class="footer-bottom">
+          <span>© 2026 Forma Studio</span>
+          <span>Made for the everyday.</span>
+          <a href="#" class="back-to-top">Back to top ↑</a>
         </div>
       </div>
     </footer>
-    <script src="app.js" defer></script>
+    <script src="./catalog-preview.js" defer></script>
+    <script src="./app.js" defer></script>
   </body>
 </html>

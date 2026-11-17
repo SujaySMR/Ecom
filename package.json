@@ -1,0 +1,24 @@
+{
+  "name": "forma-storefront",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Forma homeware storefront and Stripe Checkout server",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:migrate": "node migrate.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "country-list": "^2.4.1",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3",
+    "stripe": "^18.5.0"
+  }
+}

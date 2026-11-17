@@ -1,2 +1,4 @@
 .env
 builds/build.txt
+node_modules/
+coverage/
